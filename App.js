@@ -1,28 +1,77 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import MapView from "react-native-maps";
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <MapView
-        style={styles.map}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
-      />
-    </View>
-  );
-}
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFill,
-    flex: 1,
-  },
-  map: {
-    ...StyleSheet.absoluteFill,
+import { View, Text, StatusBar, Dimensions, SafeAreaView } from "react-native";
+import RNPoll, { IChoice } from "react-native-poll";
+import RNAnimated from "react-native-animated-component";
 
-  },
-});
+const { width: ScreenWidth } = Dimensions.get("window");
+
+const choices: Array<IChoice> = [
+  { id: 1, choice: "Python", votes: 17 },
+  { id: 2, choice: "javascript", votes: 7 },
+  { id: 3, choice: "Go", votes: 1 },
+  { id: 4, choice: "C++", votes: 5 },
+  { id: 5, choice: "ruby", votes: 9 },
+];
+
+const App = () => {
+  return (
+    <>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={{ flex: 1, alignItems: "center" }}>
+        <View>
+          <Text
+            style={{
+              marginTop: 32,
+              fontSize: 20,
+              fontFamily: "SuezOne-Regular",
+            }}
+          >
+            What programming language do you use during the coding interview
+          </Text>
+          <View
+            style={{
+              width: ScreenWidth * 0.9,
+            }}
+          >
+            <RNPoll
+              appearFrom="top"
+              totalVotes={30}
+              animationDuration={750}
+              choices={choices}
+              PollContainer={RNAnimated}
+              PollItemContainer={RNAnimated}
+              choiceTextStyle={{
+                fontFamily: "SuezOne-Regular",
+              }}
+              onChoicePress={(selectedChoice: IChoice) =>
+                console.log("SelectedChoice: ", selectedChoice)
+              }
+            />
+          </View>
+        </View>
+      </SafeAreaView>
+    </>
+  );
+};
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
